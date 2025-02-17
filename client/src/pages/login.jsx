@@ -3,17 +3,12 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
-        setSuccess("");
 
         try {
             const response = await fetch("http://localhost:8000/graphql", {
@@ -34,15 +29,15 @@ const Login = () => {
 
             const data = await response.json();
 
-            if (data.errors) {
-                setError(data.errors[0].message);
+            if (data.error) {
+                alert("Retry")
             } else {
-                setSuccess("Login successful! Redirecting...");
+                alert("Loggedin")
                 localStorage.setItem("token", data.data.login.token);
                 setTimeout(() => window.location.href = "/home", 2000);
             }
         } catch {
-            setError("An error occurred. Please try again.");
+            alert("An error occurred. Please try again.");
         }
     };
 
@@ -50,8 +45,6 @@ const Login = () => {
         <div className="flex justify-center items-center h-screen">
             <div className="flex flex-col items-center p-6 bg-gray-100 rounded-lg shadow-md max-w-sm mx-auto">
                 <h2 className="text-2xl font-bold mb-4">Login</h2>
-                {error && <p className="text-red-500">{error}</p>}
-                {success && <p className="text-green-500">{success}</p>}
                 <form onSubmit={handleSubmit} className="w-full">
                     <input
                         type="email"
