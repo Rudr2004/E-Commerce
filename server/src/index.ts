@@ -5,9 +5,15 @@ import { graphqlHTTP } from "express-graphql"
 import  schema  from "./schema/schema"
 import { root } from "./rootValue/root"
 import Db from "./Database/db"
+import cors from "cors"
 
 const app = exprss()
 const PORT = process.env.PORT || 9000
+
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}))
 
 app.use("/graphql",graphqlHTTP({
     schema,

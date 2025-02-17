@@ -6,7 +6,7 @@ const schema = buildSchema(`
     #id: ID!,
     name: String!,
     email: String!,
-    password: String!
+    password: String
     }
 
     type Query{
@@ -14,9 +14,9 @@ const schema = buildSchema(`
     }
 
     type Mutation{
-      addUser(details: UserInput!): User!
+      signup(details: UserInput!): User!
     }
-      input UserInput{
+    input UserInput{
     name: String!,
     email: String!,
     password: String!

@@ -1,4 +1,6 @@
 import User from "../User/UserModel";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const root = {
     users: async () => {
@@ -20,4 +22,25 @@ export const root = {
             throw new Error("Internal Server Error");
         }
     },
+    signup: async ({ details }) => {
+        try {
+            const { name, email, password } = details;
+
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+                throw new Error("User already exists");
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const newUser = new User({ name, email, password: hashedPassword });
+            await newUser.save();
+
+            const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: "50d" });
+
+            return { name: newUser.name, email: newUser.email, password: newUser.password };
+        } catch (error) {
+            console.error("Signup error:", error);
+            throw new Error(error.message || "Signup failed");
+        }
+    }
 };
