@@ -15,12 +15,19 @@ const schema = buildSchema(`
 
     type Mutation{
       signup(details: UserInput!): User!
+      login(login: LoginInput!): User
     }
-    input UserInput{
+      input UserInput{
     name: String!,
     email: String!,
     password: String!
-      }
+}
+    input LoginInput {
+    email: String!
+    password: String!
+    }
+
+    
     `)
     
 

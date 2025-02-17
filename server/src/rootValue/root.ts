@@ -36,11 +36,27 @@ export const root = {
             await newUser.save();
 
             const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: "50d" });
-
             return { name: newUser.name, email: newUser.email, password: newUser.password };
         } catch (error) {
             console.error("Signup error:", error);
             throw new Error(error.message || "Signup failed");
+        }
+    },
+    login: async ({login}) =>{
+        try {
+            const { email, password } = login;
+            const user = await User.findOne({ email });
+            if(!user){
+                throw new Error("User not found");
+            }
+            const isValidPassword = await bcrypt.compare(password, user.password);
+            if(!isValidPassword){
+                throw new Error("Invalid password");
+            }
+            const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "50d" })
+            return { email: user.email, password: user.password , token }
+        } catch (error) {
+            
         }
     }
 };
