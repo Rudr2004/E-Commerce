@@ -35,7 +35,7 @@ export const root = {
             const newUser = new User({ name, email, password: hashedPassword });
             await newUser.save();
 
-            const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: "50d" });
+            //const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: "50d" });
             return { name: newUser.name, email: newUser.email, password: newUser.password };
         } catch (error) {
             console.error("Signup error:", error);
