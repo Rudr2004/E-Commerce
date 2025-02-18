@@ -120,7 +120,7 @@ const Navbar = () => {
                 </div>
             </nav>
             {/* Lower Navbar */}
-            <div className="flex bg-white rounded-md shadow-sm m-4 py-3">
+            <div className="flex bg-white rounded-md shadow-sm m-4 py-3 cursor-pointer">
                 {categories.map((category) => (
                     <div key={category.id} className="flex flex-col items-center px-8 gap-3">
                         <img src={category.image} alt={category.name} />
