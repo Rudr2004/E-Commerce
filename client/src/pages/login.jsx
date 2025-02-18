@@ -40,7 +40,7 @@ const Login = () => {
                 setShowMessage(true);
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("token", data.data.login.token);
-                setTimeout(() => window.location.href = "/home", 2000);
+                setTimeout(() => window.location.href = "/", 2000);
             }
         } catch {
             setMessage({ type: "error", text: "An error occurred. Please try again." });
@@ -83,7 +83,7 @@ const Login = () => {
                         Login
                     </button>
                     <p className="flex justify-center mt-1">
-                        Not Registered? <Link to="/" className="text-blue-500 mx-0.5">Register</Link>
+                        Not Registered? <Link to="/register" className="text-blue-500 mx-0.5">Register</Link>
                     </p>
                 </form>
             </div>

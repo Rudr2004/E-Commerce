@@ -3,6 +3,7 @@ import SignupForm from "./pages/signup"
 import Login from "./pages/login"
 import Home from "./pages/home"
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 function App() {
 
 
@@ -11,13 +12,14 @@ function App() {
 
 
       <Routes>
-        <Route path="/" element={<SignupForm />} />
+        <Route path="/register" element={<SignupForm />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       <Navbar />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
       </Routes >
+      <Footer />
     </>
   )
 }

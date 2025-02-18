@@ -64,7 +64,7 @@ const Home = () => {
         {
             id: 6,
             image: "https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/import/TV/55PS850E.jpg",
-            name: "Tv",
+            name: "Smart Tv",
             price: 29999
         },
     ];
@@ -85,15 +85,63 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="container mx-auto p-4 mt-4">
+            <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md">
                 <h2 className="text-2xl font-semibold mb-4">Best of Electronics</h2>
-                <div className="grid grid-cols-6 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
                     {categories.slice(0, 6).map((category) => (
                         <div key={category.id} className="flex flex-col px-2">
                             <img
                                 src={category.image}
                                 alt={category.name}
-                                className="w-20 h-20 rounded-full object-cover mb-2 hover:scale-110 transition duration-300"
+                                className="w-30 h-30 rounded-full object-cover mb-2 hover:scale-110 transition duration-300"
+                            />
+                            <p className="font-semibold text-lg">{category.name}</p>
+                            <p className="font-semibold text-lg">From ₹{category.price}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md">
+                <h2 className="text-2xl font-semibold mb-4">Best of Electronics</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+                    {categories.slice(0, 6).map((category) => (
+                        <div key={category.id} className="flex flex-col px-2">
+                            <img
+                                src={category.image}
+                                alt={category.name}
+                                className="w-30 h-30 rounded-full object-cover mb-2 hover:scale-110 transition duration-300"
+                            />
+                            <p className="font-semibold text-lg">{category.name}</p>
+                            <p className="font-semibold text-lg">From ₹{category.price}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md">
+                <h2 className="text-2xl font-semibold mb-4">Best of Electronics</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+                    {categories.slice(0, 6).map((category) => (
+                        <div key={category.id} className="flex flex-col px-2">
+                            <img
+                                src={category.image}
+                                alt={category.name}
+                                className="w-30 h-30 rounded-full object-cover mb-2 hover:scale-110 transition duration-300"
+                            />
+                            <p className="font-semibold text-lg">{category.name}</p>
+                            <p className="font-semibold text-lg">From ₹{category.price}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md">
+                <h2 className="text-2xl font-semibold mb-4">Best of Electronics</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+                    {categories.slice(0, 6).map((category) => (
+                        <div key={category.id} className="flex flex-col px-2">
+                            <img
+                                src={category.image}
+                                alt={category.name}
+                                className="w-30 h-30 rounded-full object-cover mb-2 hover:scale-110 transition duration-300"
                             />
                             <p className="font-semibold text-lg">{category.name}</p>
                             <p className="font-semibold text-lg">From ₹{category.price}</p>
