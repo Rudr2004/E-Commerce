@@ -6,7 +6,7 @@ const schema = buildSchema(`
     #id: ID!,
     name: String!,
     email: String!,
-    password: String!
+    password: String
     #token: String
     }
 
