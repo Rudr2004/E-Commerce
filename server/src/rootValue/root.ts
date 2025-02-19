@@ -1,27 +1,17 @@
 import User from "../User/UserModel";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Product from "../Products/ProductModel";
 
 export const root = {
+    //All the users
     users: async () => {
         return await User.find();
     },
-    
-    addUser: async ({ details }) => {
-        try {
-            const newUser = await User.create(details);
-            console.log("Created user:", newUser);
-
-            if (!newUser) {
-                throw new Error("User creation failed");
-            }
-
-            return newUser;
-        } catch (error) {
-            console.error("Error in addUser:", error);
-            throw new Error("Internal Server Error");
-        }
+    product: async()=>{
+        return await Product.find()
     },
+
     signup: async ({ details }) => {
         try {
             const { name, email, password } = details;
@@ -57,6 +47,18 @@ export const root = {
             return { email: user.email, password: user.password , token }
         } catch (error) {
             
+        }
+    },
+
+    createproduct: async({product})=>{
+        try {
+            const {name,price,description,category,images} = product;
+            const newProduct = new Product({name,price,description,category,images});
+            await newProduct.save();
+            return newProduct;
+        } catch (error) {
+            console.log("Error to create a new Product", error)
+            throw new Error(error.message)
         }
     }
 };

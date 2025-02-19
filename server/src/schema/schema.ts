@@ -10,13 +10,23 @@ const schema = buildSchema(`
     #token: String
     }
 
+    type Product{
+      name: String!,
+      description: String!,
+      price: Int!,
+      category: String!,
+      image: String
+    }
+
     type Query{
     users: [User]!
+    product: [Product]!
     }
 
     type Mutation{
       signup(details: UserInput!): User!
       login(login: LoginInput!): User
+      createproduct(product: ProductInput!): Product!
     }
       input UserInput{
     name: String!,
@@ -28,6 +38,13 @@ const schema = buildSchema(`
     password: String!
     }
 
+    input ProductInput{
+      name: String!,
+      description: String!,
+      price: Int!,
+      category: String!,
+      #image: String
+    }
     
     `)
     

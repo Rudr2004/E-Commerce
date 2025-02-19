@@ -20,12 +20,47 @@ const AddItems = () => {
         setItem({ ...item, image: file });
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    query: `
+            mutation addProduct($product: ProductInput!){
+                 createproduct(product: $product){
+                    name
+                    description
+                    price
+                    category
+  }
+}
+          `,
+                    variables: { product: setItem },
+                }),
+            });
+
+            const data = await response.json();
+            console.log(data);
+            if (data) {
+                alert("Product Added Successfully");
+            }
+            else {
+                alert("Failed to add product");
+            }
+        } catch (e) {
+            console.log("Error", e);
+            alert("Error")
+        }
+
+    }
 
     return (
         <div className="flex justify-center items-center mt-5">
             <div className="flex flex-col items-center p-8 w-full max-w-lg bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg rounded-lg">
                 <h2 className="text-white text-2xl font-semibold mb-4">Add New Item</h2>
-                <form className="w-full bg-white p-6 rounded-lg shadow-md">
+                <form className="w-full bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
                     <label className="block text-gray-700 font-medium mb-2">Upload Image</label>
                     <label htmlFor="image" className="mb-2 cursor-pointer flex justify-center items-center border-2 border-dashed border-gray-300 p-3 rounded-lg hover:bg-gray-100">
                         <img src={item.image ? URL.createObjectURL(item.image) : assets.upload_area} alt="Upload Preview" className="w-32 h-32 object-cover" />

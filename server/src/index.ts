@@ -8,7 +8,7 @@ import Db from "./Database/db"
 import cors from "cors"
 
 const app = exprss()
-const PORT = process.env.PORT || 9000
+const PORT = process.env.PORT
 
 app.use(cors({
     origin: "*",
