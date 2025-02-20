@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import generateImageUrl from "./cloudinary.jsx"
 
 const ProductDetails = ({ productId }) => {
     const [product, setProduct] = useState(null);
@@ -11,21 +12,30 @@ const ProductDetails = ({ productId }) => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         query: `
-                           query GetProduct($id: ID!) {
-                              product(id: $id) {
-                                name
-                                description
-                                price
-                              }
-                           }
-                        `,
+              query GetProduct($id: ID!) {
+                product(id: $id) {
+                  name
+                  description
+                  price
+                  image {
+                    publicId
+                  }
+                }
+              }
+            `,
                         variables: { id: productId },
                     }),
                 });
 
                 const data = await response.json();
                 if (data?.data?.product) {
-                    setProduct(data.data.product);
+                    const productData = data.data.product;
+                    const imageUrl = generateImageUrl(productData.image.publicId, {
+                        width: 400,
+                        height: 400,
+                        crop: 'fill',
+                    });
+                    setProduct({ ...productData, imageUrl });
                 } else {
                     console.error("Invalid data received from API");
                 }
@@ -48,6 +58,7 @@ const ProductDetails = ({ productId }) => {
             <h2 className="text-2xl font-semibold">{product.name}</h2>
             <p className="text-lg">{product.description}</p>
             <p className="text-lg font-semibold">Price: ₹{product.price}</p>
+            <img src={product.imageUrl} alt={product.name} />
         </div>
     );
 };
