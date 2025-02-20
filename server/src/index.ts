@@ -1,4 +1,4 @@
-import exprss from "express"
+import express from "express"
 import dotenv from "dotenv"
 dotenv.config()
 import { graphqlHTTP } from "express-graphql"
@@ -7,9 +7,10 @@ import { root } from "./rootValue/root"
 import Db from "./Database/db"
 import cors from "cors"
 
-const app = exprss()
+const app = express()
 const PORT = process.env.PORT
 
+app.use(express.json({limit: "50mb"}))
 app.use(cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],

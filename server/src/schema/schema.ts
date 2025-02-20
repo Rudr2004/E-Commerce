@@ -15,7 +15,7 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      #image: String!
+      image: String
     }
     
 
@@ -45,7 +45,7 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      #image: String
+      image: String
     }
     
     `)

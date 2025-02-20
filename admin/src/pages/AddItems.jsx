@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { assets } from "../assets/assets.js";
+//import uploadFile from "../helper/uploadFile.jsx";
 
 const AddItems = () => {
+    //const [uploadPhoto, setUploadPhoto] = useState("");
     const [item, setItem] = useState({
         name: "",
         description: "",
@@ -19,24 +21,26 @@ const AddItems = () => {
         }
     };
 
-    const handleImageChange = (e) => {
+    const handleUploadPhoto = async (e) => {
         const file = e.target.files[0];
-        setItem({ ...item, image: file });
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64Image = reader.result;
+            setItem((prev) => {
+                return {
+                    ...prev,
+                    image: base64Image,
+                };
+            });
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const formData = new FormData();
-            formData.append("image", item.image);
-            formData.append("name", item.name);
-            formData.append("description", item.description);
-            formData.append("price", item.price);
-            formData.append("category", item.category);
-
             const response = await fetch("http://localhost:8000/graphql", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     query: `
             mutation addProduct($product: ProductInput!){
@@ -45,6 +49,7 @@ const AddItems = () => {
                 description
                 price
                 category
+                image
               }
             }
           `,
@@ -54,9 +59,13 @@ const AddItems = () => {
                             description: item.description,
                             price: item.price,
                             category: item.category,
+                            image: item.image,
                         },
                     },
                 }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
             });
 
             const data = await response.json();
@@ -78,9 +87,9 @@ const AddItems = () => {
                 <form className="w-full bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
                     <label className="block text-gray-700 font-medium mb-2">Upload Image</label>
                     <label htmlFor="image" className="mb-2 cursor-pointer flex justify-center items-center border-2 border-dashed border-gray-300 p-3 rounded-lg hover:bg-gray-100">
-                        <img src={item.image ? URL.createObjectURL(item.image) : assets.upload_area} alt="Upload Preview" className="w-32 h-32 object-cover" />
+                        <img src={item.image ? item.image : assets.upload_area} alt="Upload Preview" className="w-32 h-32 object-cover" />
                     </label>
-                    <input type="file" id="image" accept="image/*" className="hidden" onChange={handleImageChange} />
+                    <input type="file" id="image" accept="image/*" className="hidden" onChange={handleUploadPhoto} />
 
                     <input
                         type="text"
