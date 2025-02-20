@@ -7,12 +7,16 @@ const AddItems = () => {
         description: "",
         price: "",
         category: "",
-        image: null
+        image: null,
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setItem({ ...item, [name]: value });
+        if (name === "price") {
+            setItem({ ...item, [name]: parseInt(value) });
+        } else {
+            setItem({ ...item, [name]: value });
+        }
     };
 
     const handleImageChange = (e) => {
@@ -23,38 +27,49 @@ const AddItems = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
+            const formData = new FormData();
+            formData.append("image", item.image);
+            formData.append("name", item.name);
+            formData.append("description", item.description);
+            formData.append("price", item.price);
+            formData.append("category", item.category);
+
+            const response = await fetch("http://localhost:8000/graphql", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     query: `
             mutation addProduct($product: ProductInput!){
-                 createproduct(product: $product){
-                    name
-                    description
-                    price
-                    category
-  }
-}
+              createproduct(product: $product){
+                name
+                description
+                price
+                category
+              }
+            }
           `,
-                    variables: { product: setItem },
+                    variables: {
+                        product: {
+                            name: item.name,
+                            description: item.description,
+                            price: item.price,
+                            category: item.category,
+                        },
+                    },
                 }),
             });
 
             const data = await response.json();
-            console.log(data);
-            if (data) {
+            if (data.errors) {
+                alert("Error: " + data.errors[0].message);
+            } else {
                 alert("Product Added Successfully");
-            }
-            else {
-                alert("Failed to add product");
             }
         } catch (e) {
             console.log("Error", e);
-            alert("Error")
+            alert("Error: " + e.message);
         }
-
-    }
+    };
 
     return (
         <div className="flex justify-center items-center mt-5">

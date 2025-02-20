@@ -1,6 +1,5 @@
 import { buildSchema, GraphQLID, GraphQLString } from "graphql";
 
-
 const schema = buildSchema(`
     type User{
     #id: ID!,
@@ -11,16 +10,19 @@ const schema = buildSchema(`
     }
 
     type Product{
+     id: ID!,
       name: String!,
       description: String!,
       price: Int!,
       category: String!,
-      image: String
+      #image: String!
     }
+    
 
     type Query{
     users: [User]!
-    product: [Product]!
+    products: [Product!]!
+    product(id:ID!): Product
     }
 
     type Mutation{

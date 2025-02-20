@@ -2,15 +2,19 @@ import User from "../User/UserModel";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Product from "../Products/ProductModel";
+import mongoose from "mongoose";
 
 export const root = {
     //All the users
     users: async () => {
         return await User.find();
     },
-    product: async()=>{
+    products: async()=>{
         return await Product.find()
     },
+    product: async (args) => {  
+        return await Product.findById(args.id);
+      },
 
     signup: async ({ details }) => {
         try {
