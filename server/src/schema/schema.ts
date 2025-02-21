@@ -16,7 +16,7 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      image: Image
+      #image: Image
     }
 
     type Image{
@@ -51,7 +51,7 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      image: Upload!
+      #image: Upload!
     }
     
     `)

@@ -82,7 +82,7 @@ const Home = () => {
 
             {/* Product List Section */}
             <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md">
-                <h2 className="text-2xl font-semibold mb-4">Best of Electronics</h2>
+                <h2 className="text-2xl font-semibold mb-4">All Products</h2>
 
                 {products.length === 0 ? (
                     <p>Loading products...</p>
@@ -97,7 +97,7 @@ const Home = () => {
                                 <img src={product.images} alt="" />
                                 <h3 className="text-xl font-semibold">{product.name}</h3>
                                 <p className="text-gray-600">{product.description}</p>
-                                <p className="text-lg font-bold text-blue-600">₹{product.price}</p>
+                                <p className="text-lg font-bold text-black">₹{product.price}</p>
                             </div>
                         ))}
                     </div>
