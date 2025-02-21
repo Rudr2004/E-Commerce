@@ -1,20 +1,32 @@
-import { useState } from "react";
-import { assets } from "../assets/assets.js";
-//import uploadFile from "../helper/uploadFile.jsx";
+import { useState } from 'react';
 
-const AddItems = () => {
-    //const [uploadPhoto, setUploadPhoto] = useState("");
+const ADD_ITEM_MUTATION = `
+  mutation AddItem($product: ProductInput!) {
+    createproduct(product: $product) {
+      id
+      name
+      description
+      price
+      category
+    }
+  }
+`;
+
+const AddItem = () => {
     const [item, setItem] = useState({
-        name: "",
-        description: "",
-        price: "",
-        category: "",
+        name: '',
+        description: '',
+        price: '',
+        category: '',
         image: null,
     });
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "price") {
+        if (name === 'price') {
             setItem({ ...item, [name]: parseInt(value) });
         } else {
             setItem({ ...item, [name]: value });
@@ -38,21 +50,16 @@ const AddItems = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError(null);
         try {
-            const response = await fetch("http://localhost:8000/graphql", {
-                method: "POST",
+            const response = await fetch('http://localhost:8000/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
-                    query: `
-            mutation addProduct($product: ProductInput!){
-              createproduct(product: $product){
-                name
-                description
-                price
-                category
-                image
-              }
-            }
-          `,
+                    query: ADD_ITEM_MUTATION,
                     variables: {
                         product: {
                             name: item.name,
@@ -60,23 +67,23 @@ const AddItems = () => {
                             price: item.price,
                             category: item.category,
                             image: item.image,
-                        },
+                        }
                     },
                 }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
             });
 
             const data = await response.json();
             if (data.errors) {
-                alert("Error: " + data.errors[0].message);
+                setError(data.errors[0].message);
+            } else if (data.data.createproduct) {
+                console.log('Item added successfully');
             } else {
-                alert("Product Added Successfully");
+                setError('Failed to add item');
             }
-        } catch (e) {
-            console.log("Error", e);
-            alert("Error: " + e.message);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -86,11 +93,13 @@ const AddItems = () => {
                 <h2 className="text-white text-2xl font-semibold mb-4">Add New Item</h2>
                 <form className="w-full bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
                     <label className="block text-gray-700 font-medium mb-2">Upload Image</label>
-                    <label htmlFor="image" className="mb-2 cursor-pointer flex justify-center items-center border-2 border-dashed border-gray-300 p-3 rounded-lg hover:bg-gray-100">
-                        <img src={item.image ? item.image : assets.upload_area} alt="Upload Preview" className="w-32 h-32 object-cover" />
-                    </label>
-                    <input type="file" id="image" accept="image/*" className="hidden" onChange={handleUploadPhoto} />
-
+                    <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        onChange={handleUploadPhoto}
+                    />
                     <input
                         type="text"
                         name="name"
@@ -126,13 +135,14 @@ const AddItems = () => {
                         required
                         className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
-                    <button type="submit" className="cursor-pointer w-full bg-gradient-to-r from-green-400 to-blue-500 text-white p-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
-                        ADD ITEM
+                    <button type="submit" className="cursor-pointer w-full bg-gradient-to-r from-green-400 to-blue-500 text-white p-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300" disabled={loading}>
+                        {loading ? 'Adding...' : 'ADD ITEM'}
                     </button>
+                    {error && <p className="text-red-500">{error}</p>}
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddItems;
+export default AddItem;

@@ -1,6 +1,7 @@
 import { buildSchema, GraphQLID, GraphQLString } from "graphql";
 
 const schema = buildSchema(`
+  scalar Upload
     type User{
     #id: ID!,
     name: String!,
@@ -15,7 +16,12 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      image: String
+      image: Image
+    }
+
+    type Image{
+    publicId: String!
+    url: String!
     }
     
 
@@ -28,7 +34,7 @@ const schema = buildSchema(`
     type Mutation{
       signup(details: UserInput!): User!
       login(login: LoginInput!): User
-      createproduct(product: ProductInput!): Product!
+      createproduct(product: ProductInput!): Product
     }
       input UserInput{
     name: String!,
@@ -45,7 +51,7 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      image: String
+      image: Upload!
     }
     
     `)
