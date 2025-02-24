@@ -150,7 +150,7 @@ const Navbar = () => {
             )}
 
             {/* Lower Navbar (Category Scroll) */}
-            <div className="flex overflow-x-auto bg-white rounded-md shadow-sm p-4 space-x-6">
+            <div className="flex overflow-x-auto bg-white rounded-md shadow-sm p-4 space-x-6 gap-10">
                 {categories.map((category) => (
                     <div key={category.id} className="flex flex-col items-center min-w-[80px]">
                         <img src={category.image} alt={category.name} className="w-12 h-12" />
