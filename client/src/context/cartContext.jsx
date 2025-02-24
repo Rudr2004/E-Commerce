@@ -3,16 +3,16 @@ import { createContext, useContext, useState, useEffect } from "react";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState([]);
-    const [message, setMessage] = useState("");
-    const [currentOrder, setCurrentOrder] = useState(null);
+    const [cart, setCart] = useState(() => {
+        const storedCart = localStorage.getItem("cart");
+        return storedCart ? JSON.parse(storedCart) : [];
+    });
 
-    useEffect(() => {
-        const storedCart = JSON.parse(localStorage.getItem("cart"));
-        if (storedCart) {
-            setCart(storedCart);
-        }
-    }, []);
+    const [message, setMessage] = useState("");
+    const [currentOrder, setCurrentOrder] = useState(() => {
+        const storedOrder = localStorage.getItem("currentOrder");
+        return storedOrder ? JSON.parse(storedOrder) : null;
+    });
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -47,8 +47,8 @@ export const CartProvider = ({ children }) => {
     };
 
     const buyNow = (product) => {
-        setCurrentOrder(product); // Store order in state
-        localStorage.setItem("currentOrder", JSON.stringify(product)); // Save to localStorage
+        setCurrentOrder(product);
+        localStorage.setItem("currentOrder", JSON.stringify(product));
     };
 
     return (

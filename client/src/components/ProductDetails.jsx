@@ -21,7 +21,7 @@ const ProductDetails = ({ productId }) => {
                   name
                   description
                   price
-                  #imageUrl
+                  image
                 }
               }
             `,
@@ -65,7 +65,7 @@ const ProductDetails = ({ productId }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
                 <div className="flex justify-center">
                     <img
-                        src={product.imageUrl || "https://via.placeholder.com/300"}
+                        src={product.image || "https://via.placeholder.com/300"}
                         alt={product.name}
                         className="w-80 h-80 object-cover border border-gray-300 rounded-md shadow-md"
                     />

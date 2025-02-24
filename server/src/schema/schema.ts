@@ -1,7 +1,6 @@
 import { buildSchema, GraphQLID, GraphQLString } from "graphql";
 
 const schema = buildSchema(`
-  scalar Upload
     type User{
     #id: ID!,
     name: String!,
@@ -16,14 +15,8 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      #image: Image
+      image: String
     }
-
-    type Image{
-    publicId: String!
-    url: String!
-    }
-    
 
     type Query{
     users: [User]!
@@ -51,7 +44,7 @@ const schema = buildSchema(`
       description: String!,
       price: Int!,
       category: String!,
-      #image: Upload!
+      image: String
     }
     
     `)

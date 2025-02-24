@@ -22,7 +22,7 @@ const CartPage = () => {
                         <div key={item.id} className="flex flex-col sm:flex-row items-center sm:items-stretch justify-between p-5 border rounded-lg shadow-sm bg-gray-50">
                             {/* Product Image */}
                             <img
-                                src={item.imageUrl || "https://via.placeholder.com/100"}
+                                src={item.image || "https://via.placeholder.com/100"}
                                 alt={item.name}
                                 className="w-24 h-24 object-cover border border-gray-300 rounded-lg"
                             />

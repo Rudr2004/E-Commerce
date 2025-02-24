@@ -7,6 +7,8 @@ import Footer from "./components/Footer"
 import ProductDetailsPage from './pages/productDetail';
 import CartPage from "./pages/cart"
 import CheckoutPage from "./pages/checkout"
+import Payment from "./pages/payment"
+
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes >
       <Footer />
     </>

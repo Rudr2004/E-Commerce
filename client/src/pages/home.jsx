@@ -42,6 +42,7 @@ const Home = () => {
                                     name
                                     description
                                     price
+                                    image
                                 }
                             }
                         `,
@@ -94,7 +95,7 @@ const Home = () => {
                                 className="p-4 border rounded shadow hover:shadow-lg cursor-pointer"
                                 onClick={() => handleProductClick(product.id)}
                             >
-                                <img src={product.images} alt="" />
+                                <img src={product.image} alt="" />
                                 <h3 className="text-xl font-semibold">{product.name}</h3>
                                 <p className="text-gray-600">{product.description}</p>
                                 <p className="text-lg font-bold text-black">₹{product.price}</p>

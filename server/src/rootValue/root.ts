@@ -5,11 +5,7 @@ import jwt from 'jsonwebtoken';
 import Product from '../Products/ProductModel';
 
 
-const cloudinaryConfig = cloudinary.config({
-  cloud_name: 'dxnbxg50o',
-  api_key: 477496698155547,
-  api_secret: '-9PkjnDjGMZYGvep6LkYvsD3yfM',
-});
+
 
 export const root = {
   // All the users
@@ -62,27 +58,35 @@ export const root = {
     }
   },
 
-  createproduct: async (parent, { name, description, price, category, image }) => {
-    // Upload image to Cloudinary
-    const uploadResult = await cloudinary.uploader.upload(image, {
-      folder: 'items',
-      resource_type: 'image',
-    });
-
-    // Create new product in database
-    const product = new Product({
+  createproduct: async ({ product }) => {
+    console.log("Received product input:", product); 
+  
+    if (!product) {
+      throw new Error("Product input is missing.");
+    }
+  
+    const { name, description, price, category, image } = product;
+  
+    // Ensure all required fields are present
+    if (!name || !description || !price || !category) {
+      throw new Error("All fields (name, description, price, category) are required.");
+    }
+  
+    // Ensure price is a number and greater than 0
+    if (typeof price !== "number" || price <= 0) {
+      throw new Error("Price must be a positive number.");
+    }
+  
+    const newProduct = new Product({
       name,
       description,
       price,
       category,
-      image: {
-        publicId: uploadResult.public_id,
-        url: uploadResult.secure_url,
-      },
+      image
     });
-
-    await product.save();
-
-    return product;
+  
+    await newProduct.save();
+    return newProduct;
   },
+  
 };
