@@ -1,4 +1,3 @@
-import  cloudinary  from 'cloudinary';
 import User from "../User/UserModel"
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -11,6 +10,9 @@ export const root = {
   // All the users
   users: async () => {
     return await User.find();
+  },
+  user: async (args)=>{
+    return await User.findById(args.id)
   },
   products: async () => {
     return await Product.find();

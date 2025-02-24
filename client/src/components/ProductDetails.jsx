@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/cartContext";
-import { useNavigate } from "react-router-dom";
+
 
 const ProductDetails = ({ productId }) => {
     const [product, setProduct] = useState(null);
-    const { addToCart, buyNow, message } = useCart();
-    const navigate = useNavigate();
+    const { addToCart, message } = useCart();
 
     useEffect(() => {
         const fetchProductDetails = async () => {
@@ -49,10 +48,6 @@ const ProductDetails = ({ productId }) => {
         return <p className="text-center text-lg font-semibold">Loading...</p>;
     }
 
-    const handleBuyNow = () => {
-        buyNow(product); // Store the product for checkout
-        navigate("/checkout");
-    };
 
     return (
         <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-md relative">
@@ -77,12 +72,6 @@ const ProductDetails = ({ productId }) => {
                     <h2 className="text-2xl font-bold text-green-600">₹{product.price}</h2>
 
                     <div className="flex gap-4">
-                        <button
-                            onClick={handleBuyNow}
-                            className="bg-yellow-500 text-white px-6 py-2 rounded-md text-lg font-medium cursor-pointer hover:bg-yellow-600"
-                        >
-                            Buy Now
-                        </button>
                         <button
                             onClick={() => addToCart(product)}
                             className="bg-blue-700 text-white px-6 py-2 rounded-md text-lg font-medium cursor-pointer hover:bg-blue-600"

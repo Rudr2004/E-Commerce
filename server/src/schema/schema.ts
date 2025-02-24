@@ -2,7 +2,7 @@ import { buildSchema, GraphQLID, GraphQLString } from "graphql";
 
 const schema = buildSchema(`
     type User{
-    #id: ID!,
+    id: ID!,
     name: String!,
     email: String!,
     password: String
@@ -20,6 +20,7 @@ const schema = buildSchema(`
 
     type Query{
     users: [User]!
+    user(id:ID!): User
     products: [Product!]!
     product(id:ID!): Product
     }

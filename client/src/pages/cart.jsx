@@ -48,22 +48,18 @@ const CartPage = () => {
                                 >
                                     +
                                 </button>
-                            </div>
-
-                            {/* Buy Now Button - Positioned to the Right */}
-                            <div className="mt-4 sm:mt-0 sm:ml-auto">
                                 <button
                                     onClick={() => handleBuyNow(item)}
-                                    className="bg-yellow-500 text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-yellow-600 transition duration-300 w-full sm:w-auto cursor-pointer"
-                                >
+                                    className="bg-yellow-500 text-white  px-6 py-2 rounded-lg text-lg font-medium hover:bg-yellow-600 transition duration-300 w-full sm:w-auto cursor-pointer">
                                     Buy Now
                                 </button>
                             </div>
                         </div>
                     ))}
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 

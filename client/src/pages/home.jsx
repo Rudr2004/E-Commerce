@@ -82,7 +82,7 @@ const Home = () => {
             </div>
 
             {/* Product List Section */}
-            <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md">
+            <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md ">
                 <h2 className="text-2xl font-semibold mb-4">All Products</h2>
 
                 {products.length === 0 ? (
@@ -95,7 +95,7 @@ const Home = () => {
                                 className="p-4 border rounded shadow hover:shadow-lg cursor-pointer"
                                 onClick={() => handleProductClick(product.id)}
                             >
-                                <img src={product.image} alt="" />
+                                <img src={product.image} alt={product.name} className="w-full h-80 object-cover rounded-md" />
                                 <h3 className="text-xl font-semibold">{product.name}</h3>
                                 <p className="text-gray-600">{product.description}</p>
                                 <p className="text-lg font-bold text-black">₹{product.price}</p>

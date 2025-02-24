@@ -25,6 +25,7 @@ const AddItem = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -63,6 +64,7 @@ const AddItem = () => {
         e.preventDefault();
         setLoading(true);
         setError(null);
+        setSuccess(null)
 
         try {
             const response = await fetch('http://localhost:8000/graphql', {
@@ -84,6 +86,7 @@ const AddItem = () => {
             if (data.errors) {
                 setError(data.errors[0].message);
             } else if (data.data.createproduct) {
+                setSuccess("Item added Successfully")
                 console.log('Item added successfully');
             } else {
                 setError('Failed to add item');
@@ -146,6 +149,8 @@ const AddItem = () => {
                         {loading ? 'Adding...' : 'ADD ITEM'}
                     </button>
                     {error && <p className="text-red-500">{error}</p>}
+                    {success && <p className="text-green-500">{success}</p>}
+
                 </form>
             </div>
         </div>
