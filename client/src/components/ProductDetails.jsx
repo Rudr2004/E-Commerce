@@ -9,7 +9,7 @@ const ProductDetails = ({ productId }) => {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                const response = await fetch("http://localhost:8000/graphql", {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
