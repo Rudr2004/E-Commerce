@@ -4,7 +4,7 @@ const Navbar = () => {
     const navigate = useNavigate()
     const handleAdd = (e) => {
         e.preventDefault()
-        navigate('/add')
+        navigate('/')
     }
     const handleList = (e) => {
         e.preventDefault()

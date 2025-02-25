@@ -3,15 +3,15 @@ import Navbar from "./components/Navbar"
 import { Routes, Route } from "react-router-dom"
 import AddItems from "./pages/AddItems"
 import ListItems from "./pages/ListItems"
-import Home from "./pages/Home"
+import { Toaster } from "react-hot-toast"
 function App() {
 
   return (
     <>
       <Navbar />
+      <Toaster />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/add" element={<AddItems />} />
+        <Route path="/" element={<AddItems />} />
         <Route path="/list" element={<ListItems />} />
       </Routes>
     </>

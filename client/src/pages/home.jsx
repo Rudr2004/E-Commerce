@@ -7,7 +7,8 @@ import banner3 from "../assets/banner3.png";
 const Home = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [products, setProducts] = useState([]);  // Store products from database
+    const [products, setProducts] = useState([]);  // Fetch products from database
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
 
     const images = [banner2, banner1, banner3];
@@ -57,6 +58,8 @@ const Home = () => {
                 }
             } catch (error) {
                 console.error("Error fetching products:", error);
+            } finally {
+                setLoading(false)
             }
         };
 
@@ -85,9 +88,10 @@ const Home = () => {
             <div className="container mx-auto p-4 mt-4 bg-white shadow-md border-gray-400 rounded-md ">
                 <h2 className="text-2xl font-semibold mb-4">All Products</h2>
 
-                {products.length === 0 ? (
-                    <p>Loading products...</p>
-                ) : (
+                {loading ? (
+                    <div className="flex justify-center items-center">
+                        <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+                    </div>) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {products.map((product) => (
                             <div

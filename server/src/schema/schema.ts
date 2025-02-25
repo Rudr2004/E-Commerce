@@ -29,6 +29,7 @@ const schema = buildSchema(`
       signup(details: UserInput!): User!
       login(login: LoginInput!): User
       createproduct(product: ProductInput!): Product
+      removeproduct(id: ID!): Product
     }
       input UserInput{
     name: String!,

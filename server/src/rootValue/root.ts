@@ -90,5 +90,28 @@ export const root = {
     await newProduct.save();
     return newProduct;
   },
+
+  removeproduct: async ({ id }) => {
+    console.log("Received product id:", id);
+
+    if (!id) {
+        throw new Error("Product ID is required.");
+    }
+
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            throw new Error("Product not found.");
+        }
+
+        console.log("Product Deleted Successfully");
+        return deletedProduct;
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        throw new Error("Failed to delete product.");
+    }
+}
+
   
 };
