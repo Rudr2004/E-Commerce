@@ -18,3 +18,15 @@ export const REMOVE_ITEM_MUTATION = `
   }
 }
 `;
+
+export const LIST_ITEM = `
+query {
+  products {
+    id
+    name
+    description
+    price
+    image
+  }
+}
+`;
