@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/cartContext";
+import { GET_PRODUCT } from "../graphql/mutation";
 
 
 const ProductDetails = ({ productId }) => {
     const [product, setProduct] = useState(null);
     const { addToCart, message } = useCart();
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchProductDetails = async () => {
@@ -13,17 +15,7 @@ const ProductDetails = ({ productId }) => {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        query: `
-              query GetProduct($id: ID!) {
-                product(id: $id) {
-                  id
-                  name
-                  description
-                  price
-                  image
-                }
-              }
-            `,
+                        query: GET_PRODUCT,
                         variables: { id: productId },
                     }),
                 });
@@ -45,10 +37,15 @@ const ProductDetails = ({ productId }) => {
     }, [productId]);
 
     if (!product) {
-        return <p className="text-center text-lg font-semibold">Loading...</p>;
+        return <>{
+            loading ? (
+                <div className="flex justify-center items-center" >
+                    <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+                </div >) : setLoading(false)
+        }
+        </>
+
     }
-
-
     return (
         <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-md relative">
             {message && (

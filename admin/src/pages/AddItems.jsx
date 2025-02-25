@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import uploadFile from "../helper/uploadFile"
-
-const ADD_ITEM_MUTATION = `
-  mutation AddItem($product: ProductInput!) {
-    createproduct(product: $product) {
-      id
-      name
-      description
-      price
-      category
-      image
-    }
-  }
-`;
+import { ADD_ITEM_MUTATION } from '../graphql/mutation';
 
 const AddItem = () => {
     const [item, setItem] = useState({

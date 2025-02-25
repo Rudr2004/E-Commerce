@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import banner2 from "../assets/banner2.png";
 import banner1 from "../assets/banner1.png";
 import banner3 from "../assets/banner3.png";
+import { GET_ALL_PRODUCT } from "../graphql/mutation";
 
 const Home = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -36,17 +37,7 @@ const Home = () => {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        query: `
-                            query {
-                                products {
-                                    id
-                                    name
-                                    description
-                                    price
-                                    image
-                                }
-                            }
-                        `,
+                        query: GET_ALL_PRODUCT,
                     }),
                 });
 

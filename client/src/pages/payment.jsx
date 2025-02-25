@@ -10,7 +10,6 @@ const Payment = () => {
     const [showError, setShowError] = useState(false);
 
     useEffect(() => {
-        document.title = "Payment | Checkout";
         const storedOrder = JSON.parse(localStorage.getItem("currentOrder"));
 
         if (storedOrder) {

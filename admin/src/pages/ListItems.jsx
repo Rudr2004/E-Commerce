@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
+import { REMOVE_ITEM_MUTATION } from "../graphql/mutation";
 import toast from "react-hot-toast";
 
 const ListItems = () => {
@@ -47,13 +48,7 @@ const ListItems = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    query: `
-                     mutation remove($id: ID!){
-                      removeproduct(id: $id){
-                        id
-                      }
-                     }
-                    `,
+                    query: REMOVE_ITEM_MUTATION,
                     variables: { id }
                 }),
             });

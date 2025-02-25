@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { LOGIN_MUTATION } from "../graphql/mutation";
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -18,14 +19,7 @@ const Login = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    query: `
-            mutation login($login: LoginInput!) {
-              login(login: $login) {
-                email,
-                password
-              }
-            }
-          `,
+                    query: LOGIN_MUTATION,
                     variables: { login: formData },
                 }),
             });
