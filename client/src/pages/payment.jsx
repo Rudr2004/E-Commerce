@@ -22,7 +22,7 @@ const Payment = () => {
     }, [navigate]);
 
     return (
-        <PayPalScriptProvider options={{ "client-id": process.env.PAYPAL_CLIENT_ID }}>
+        <PayPalScriptProvider options={{ "client-id": import.meta.env.PAYPAL_CLIENT_ID }}>
             <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 md:px-6">
                 <div className="w-full max-w-3xl p-6 md:p-8 bg-white shadow-xl rounded-lg">
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
